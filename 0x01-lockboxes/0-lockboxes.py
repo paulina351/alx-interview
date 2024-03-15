@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """lockbox question"""
 
+
 def canUnlockAll(boxes):
     """ A method that determines if all the boxes can be opened."""
     for key in range(1, len(boxes)):
