@@ -13,7 +13,7 @@ def get_set_bits(number):
 
 
 def validUTF8(data):
-    """a method that determines if a given data 
+    """a method that determines if a given data
         set represents a valid UTF-8 encoding.
     """
     bits_count = 0
