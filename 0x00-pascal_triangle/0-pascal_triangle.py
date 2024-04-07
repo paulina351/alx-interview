@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-returns a list of lists of integers
+Returns a list of lists of integers
 representing the Pascal’s triangle of n:
 """
 def pascal_triangle(n):
@@ -9,19 +9,16 @@ def pascal_triangle(n):
     n will always be an integer.
     """
 
-    n = int(input("Enter the number of rows for Pascal's Triangle: "))
-    
-    triangle = []
+    if type(n) is not int and n < 0:
+        return ([])
+    row = []
+    for a in range(n):
+        row.append([])
+        row[a].append(1)
+        if (a > 0):
+            for b in range(1, a):
+                row[a].append(row[a - 1][b - 1] + row[a - 1][b])
+            row[a].append(1)
 
-    for x in range(n):
-        row = []
-        for y in range(x + y):
-            if y == 0 or y == x:
-                row.append(1)
-            else:
-                previous_row = triangle[x - 1]
-                row.append(previous_row[y - 1] + previous_row[y])
-    triangle.append(row)
 
-    for row in triangle:
-        print(" ".join(map(str, row)).center(n * 3))
+    return (row)
