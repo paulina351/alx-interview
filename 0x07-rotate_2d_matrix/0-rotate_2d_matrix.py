@@ -8,7 +8,7 @@ def rotate_2d_matrix(matrix):
     for a in range(int(n / 2)):
         d = (n - a - 1)
         for b in range(a, d):
-            c  = (n - 1 - b)
+            c = (n - 1 - b)
             tmp = matrix[a][b]
             matrix[a][b] = matrix[c][a]
 
