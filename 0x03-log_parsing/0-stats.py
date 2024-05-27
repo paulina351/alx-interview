@@ -1,47 +1,46 @@
 #!/usr/bin/python3
 """Log parsing"""
 
+from sys import stdin
 
-def stat(fsize, stat_codes):
-    """"""
+status_codes = {
+    "200": 0,
+    "301": 0,
+    "400": 0,
+    "401": 0,
+    "403": 0,
+    "404": 0,
+    "405": 0,
+    "500": 0
+}
+
+size = 0
+
+
+def log_stats():
+    """Log parsing"""
     print("File size: {}".format(size))
-    for key in sorted(stat_codes):
-        print("{}: {}".format(key, stat_codes[key]))
+    for status in sorted(status_codes.keys()):
+        if status_codes[status]:
+            print("{}: {}".format(status, status_codes[status]))
+
 
 if __name__ == "__main__":
-    import sys
-
-    fsize = 0
-    stat_codes = {}
-    vald_codes = ['200', '301', '400', '401', '403', '404', '405', '500']
     count = 0
-
     try:
-        for line in sys.stdin:
-            if count == 10:
-                stat(fsize, stat_codes)
-                count = 1
-            else:
-                count += 1
-
-            line = line.split()
-
+        for line in stdin:
             try:
-                fsize += int(line[-1])
-            except (IndexError, ValueError):
+                items = line.split()
+                size += int(items[-1])
+                if items[-2] in status_codes:
+                    status_codes[items[-2]] += 1
+            except Exception:
                 pass
-
-            try:
-                if line[-2] in lald_codes:
-                    if stat_codes.get(line[-2], -1) == -1:
-                        stat_codes[line[-2]] += 1
-                    else:
-                        stat_codes[line[-2]] += 1
-            except IndexError:
-                pass
-
-        stats(fsize, stat_codes)
-
+            if count == 9:
+                log_stats()
+                count = -1
+            count += 1
     except KeyboardInterrupt:
-        stat(fsize, stat_codes)
+        log_stats()
         raise
+    log_stats()
